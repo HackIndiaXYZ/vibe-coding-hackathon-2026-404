@@ -133,7 +133,6 @@ This provides the user with visual context and validation of the search results 
 ---
 
 ## 📂 Project Structure
-
 ```
 multimodal_video_moment_finder/
 ├── backend/
