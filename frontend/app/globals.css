@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #06b6d4; /* Neon Cyan for Forensic look */
+  --accent-dim: #0891b2;
+  --accent-glow: rgba(6, 182, 212, 0.15);
+  
+  --cctv: #06b6d4;      /* Cyan */
+  --bodycam: #3b82f6;   /* Blue */
+  --dashcam: #8b5cf6;   /* Purple */
+  --radar-green: #10b981; /* Emerald */
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1f2937 transparent;
+}
+
+body {
+  background: #060608;
+  background-image: 
+    linear-gradient(rgba(18, 24, 38, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 24, 38, 0.2) 1px, transparent 1px);
+  background-size: 30px 30px;
+  color: #e4e4e7;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Glass panels with cyber border */
+.glass {
+  background: rgba(10, 10, 14, 0.75);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(6, 182, 212, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+}
+
+.glass-subtle {
+  background: rgba(10, 10, 14, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(63, 63, 70, 0.15);
+}
+
+/* Cyber Terminal Scanline */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+.scanline::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Radar Pulse / Scanning animation on thumbnails */
+@keyframes radar-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.radar-sweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: radar-scan 2.5s linear infinite;
+  z-index: 10;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* Target Lock Corners (Forensic UI indicator) */
+.target-corners {
+  position: relative;
+}
+.target-corners::before, .target-corners::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--accent);
+  pointer-events: none;
+  z-index: 20;
+}
+/* Top left corner */
+.target-corners::before {
+  top: 6px;
+  left: 6px;
+  border-right: none;
+  border-bottom: none;
+}
+/* Bottom right corner */
+.target-corners::after {
+  bottom: 6px;
+  right: 6px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Shimmer for loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+/* Smooth video transition */
+video {
+  transition: opacity 0.3s ease;
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.05);
+}
+
+/* Custom focus ring */
+input:focus, select:focus, button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.4);
+  border-color: rgba(6, 182, 212, 0.6) !important;
+}
+
+/* Result card hover lift */
+.result-card {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  background: rgba(14, 165, 233, 0.03) !important;
+  border-color: rgba(6, 182, 212, 0.35) !important;
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.5), 
+    inset 0 0 12px rgba(6, 182, 212, 0.05);
+}
+
+/* LED blink animation */
+@keyframes led-blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.led-active {
+  animation: led-blink 1s ease-in-out infinite;
+}
+
+/* Cybernetic text glow */
+.text-glow-cyan {
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+}
